@@ -8,8 +8,8 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 130.193.40.65
 
-Frontend https://...
+Frontend https://olecyaMesto.nomoredomains.work
 
-Backend https://...
+Backend https://expressolecyamesto.nomoredomains.work/
