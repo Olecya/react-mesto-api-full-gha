@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cors = require("cors")
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -21,6 +22,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb')
   .catch((error) => {
     console.log(`Error during connection ${error}`);
   });
+app.use(cors())
 app.use(bodyParser.json());
 app.use(cookieParser());
 
