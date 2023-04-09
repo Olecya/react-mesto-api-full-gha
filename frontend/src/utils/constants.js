@@ -53,10 +53,18 @@ export const validationConfig = {
 
 export const apiOptions =
 {
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-52',
+    baseUrl: 'http://expressOlecyaMesto.nomoredomains.work',
     headers:
     {
-        authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
+        // authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
         'Content-Type': 'application/json'
     }
 }
+// {
+//     baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-52',
+//     headers:
+//     {
+//         authorization: '71aaadd6-02f4-42c8-bb63-514ed8832d4f',
+//         'Content-Type': 'application/json'
+//     }
+// }
