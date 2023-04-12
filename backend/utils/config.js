@@ -1,6 +1,6 @@
 const JWT_KEY_SECRET = 'TOOOP-SICRET';
 const allowedCors = [
-  'https://olecyamesto.nomoredomains.work/sign-in',
+  'https://olecyamesto.nomoredomains.work',
   'http://olecyamesto.nomoredomains.work',
   'http://localhost:3000',
 ];
