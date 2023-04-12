@@ -99,7 +99,7 @@ const login = (req, res, next) => {
         NODE_ENV ? JWT_SECRET : JWT_KEY_SECRET,
         { expiresIn: '7d' },
       );
-      res.send({token});
+      res.send({ token });
       // res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 * 24 * 7 }).send({token: true});
     })
     .catch((e) => next(e));

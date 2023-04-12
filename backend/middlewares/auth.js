@@ -9,7 +9,7 @@ module.exports = (req, res, next) => {
   // console.log(req.headers.authorization.replace('jwt ', ''));
   const cookie = req.headers.authorization.replace('jwt ', '');
   if (!cookie) {
-    console.log('мы тут(((')
+    console.log('мы тут(((');
     next(new UnauthorizedErr('Войдите на сервис или зарегистрируйтесь'));
     return;
   }

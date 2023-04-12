@@ -12,7 +12,6 @@ const BadRequestErr = require('./errors/BadRequestErr');
 const ConflictErr = require('./errors/ConflictErr');
 const { allowedCors } = require('./utils/config');
 
-
 const { PORT = 3001 } = process.env;
 const app = express();
 
