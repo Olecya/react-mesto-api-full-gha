@@ -1,5 +1,5 @@
 require('dotenv').config();
-// const cors = require('cors');
+const cors = require('cors');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -10,24 +10,25 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes/routes');
 const BadRequestErr = require('./errors/BadRequestErr');
 const ConflictErr = require('./errors/ConflictErr');
+const { allowedCors } = require('./utils/config');
 
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 const app = express();
 
-app.use((req, res, next) => {
-  const { origin } = req.headers;
-  const { method } = req;
-  const requestHeaders = req.headers['access-control-request-headers'];
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-  if (method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', "GET,HEAD,PUT,PATCH,POST,DELETE");
-    res.header('Access-Control-Allow-Headers', requestHeaders);
-    return res.end();
-  }
-})
+// app.use((req, res, next) => {
+//   const { origin } = req.headers;
+//   const { method } = req;
+//   const requestHeaders = req.headers['access-control-request-headers'];
+//   if (allowedCors.includes(origin)) {
+//     res.header('Access-Control-Allow-Origin', origin);
+//   }
+//   if (method === 'OPTIONS') {
+//     res.header('Access-Control-Allow-Methods', "GET,HEAD,PUT,PATCH,POST,DELETE");
+//     res.header('Access-Control-Allow-Headers', requestHeaders);
+//     return res.end();
+//   }
+// })
 
 // подключаемся к серверу mongo
 mongoose.connect('mongodb://localhost:27017/mestodb')
@@ -37,7 +38,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb')
   .catch((error) => {
     console.log(`Error during connection ${error}`);
   });
-// app.use(cors());
+app.use(cors({ origin: allowedCors, credentials: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 

@@ -6,8 +6,10 @@ const UnauthorizedErr = require('../errors/UnauthorizedErr');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports = (req, res, next) => {
-  const cookie = req.cookies.jwt;
+  // console.log(req.headers.authorization.replace('jwt ', ''));
+  const cookie = req.headers.authorization.replace('jwt ', '');
   if (!cookie) {
+    console.log('мы тут(((')
     next(new UnauthorizedErr('Войдите на сервис или зарегистрируйтесь'));
     return;
   }

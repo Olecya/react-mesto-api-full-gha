@@ -1,6 +1,8 @@
 export const BASE_URL = 'http://expressOlecyaMesto.nomoredomains.work';
+// export const BASE_URL = 'http://localhost:3001';
 
 export const register = (email, password) => {
+    console.log(`${BASE_URL}`);
     return fetch(`${BASE_URL}/signup`, {
         method: 'POST',
         headers: {
@@ -34,13 +36,9 @@ export const checkToken = (token) => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `jwt ${token}`,
         }
     })
         .then(res => res.json())
-        .then(data => {
-            // console.log(data);
-            return data
-        })
         .catch(err => console.log(err))
 }

@@ -31,7 +31,7 @@ const deleteCard = async (req, res, next) => {
       if (userId === card.owner.toString()) {
         card.deleteOne({})
           .then(() => {
-            res.send({ data: card });
+            res.send(card);
           })
           .catch((e) => next(e));
       } else {
@@ -60,7 +60,7 @@ const putCardLike = async (req, res, next) => {
         next(new NotFoundErr('Запрашиваемая карточка не найдена'));
         return;
       }
-      if (card) res.send({ data: card });
+      if (card) res.send(card);
     })
     .catch((error) => {
       if (error.name === 'CastError') {
@@ -79,8 +79,9 @@ const deleteCardLike = async (req, res, next) => {
     { $pull: { likes: userId } },
     { new: true },
   )
+    .populate(['owner', 'likes'])
     .then((card) => {
-      if (card) res.send({ data: card });
+      if (card) res.send(card);
       if (!card) {
         next(new NotFoundErr('Запрашиваемая карточка не найдена'));
       }

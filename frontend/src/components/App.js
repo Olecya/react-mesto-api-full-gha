@@ -5,7 +5,6 @@ import ProtectedRouteElement from "./ProtectedRoute";
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-// import { Card } from './Card';
 import api from '../utils/Api';
 import PopupWithForm from './PopupWithForm';
 import { ImagePopup } from './ImagePopup';
@@ -39,7 +38,7 @@ function App() {
 
     const getUser = useCallback(() => {
         api.getProfile()
-            .then((res) => { setCurrentUser(res) })
+            .then((res) => setCurrentUser(res))
             .catch((err) => console.log(err))
     }, []);
 
@@ -114,7 +113,6 @@ function App() {
     }
 
     function handleUpdateAvatar(avatarUrl) {
-        // console.log(avatarUrl);
         api.patchProfileAvatar(avatarUrl)
             .then((res) => setCurrentUser(res))
             .then(() => closeAllPopups())
@@ -130,7 +128,6 @@ function App() {
     function handleSignUp({ email, password }) {
         register(email, password)
             .then((r) => {
-                // console.log(r.ok);
                 setIsInfoTooltipOpenIsOk(r.ok);
                 setIsInfoTooltipOpen(true);
             })
@@ -139,17 +136,17 @@ function App() {
     function handleSignIn({ email, password }) {
         authorize(password, email)
             .then((data) => {
-                // console.log(data);
+                console.log(data.token);
                 if (data.token) {
                     setLoggedIn(true);
                     localStorage.setItem('mail', email);
                     localStorage.setItem('jwt', data.token);
-                    navigate("/", { replace: true })
                 } else {
                     setIsInfoTooltipOpenIsOk(false);
                     setIsInfoTooltipOpen(true);
                 }
             })
+            .then(() => navigate("/", { replace: true }))
             .catch((err) => console.log(err))
     }
 
@@ -171,7 +168,7 @@ function App() {
                                 cards={cards}
                                 onCardClick={setSelectedCard}
                                 onCardLike={handleCardLike}
-                                onCardDelete={ handleCardDelete}
+                                onCardDelete={handleCardDelete}
                                 loading={loading}
                             />}
                             loggedIn={loggedIn}

@@ -91,6 +91,7 @@ const patchUserAvatar = (req, res, next) => {
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
+  console.log(email, password);
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
@@ -98,7 +99,8 @@ const login = (req, res, next) => {
         NODE_ENV ? JWT_SECRET : JWT_KEY_SECRET,
         { expiresIn: '7d' },
       );
-      res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 * 24 * 7 }).send({});
+      res.send({token});
+      // res.cookie('jwt', token, { httpOnly: true, maxAge: 3600000 * 24 * 7 }).send({token: true});
     })
     .catch((e) => next(e));
 };

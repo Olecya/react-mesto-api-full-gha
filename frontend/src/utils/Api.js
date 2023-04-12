@@ -4,10 +4,12 @@ class Api {
     constructor(apiOptions) {
         this._baseUrl = apiOptions.baseUrl;
         this._headers = apiOptions.headers;
+
     }
 
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
+            credentials: 'include',
             headers: this._headers
         })
             .then(this._checkResponse);
@@ -43,13 +45,12 @@ class Api {
 
     getProfile() {
         return fetch(`${this._baseUrl}/users/me`, {
-            headers: this._headers
+            headers: this._headers,
         })
             .then(this._checkResponse);
     }
 
     patchProfile(profileJSON) {
-        // console.log(profileJSON);
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
@@ -62,8 +63,6 @@ class Api {
     }
 
     patchProfileAvatar(avatarUrl) {
-        // this._renderLoading(true, battonElement);
-        // console.log(avatarUrl);
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
@@ -75,7 +74,9 @@ class Api {
     }
 
     _checkResponse = (res) => {
-        if (res.ok) return res.json();
+        if (res.ok) {
+            return res.json()
+        };
         return Promise.reject(`Ошибка: ${res.status}`);
     }
 }

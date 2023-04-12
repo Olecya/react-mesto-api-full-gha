@@ -4,9 +4,9 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 
 export const Card = (props) => {
+
     const { card, onCardClick, onCardLike, onCardDelete } = props;
     const { likes, link, name, owner, _id } = card;
-
     const [currentUser, setCurrentUser] = useContext(CurrentUserContext);
 
     const isOwn = owner._id === currentUser._id;
@@ -16,7 +16,6 @@ export const Card = (props) => {
         `element__like ${isLiked && 'element__like_aktiv'}`
     );
 
-    // console.log(currentUser);
     return (
         <article className="element">
             {isOwn && <button className="element__trash" aria-label="trash" onClick={() => onCardDelete(card)} />}
