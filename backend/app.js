@@ -54,7 +54,7 @@ app.use((err, req, res, next) => {
     error.message = 'Произошла ошибка сервера';
   }
 
-  res.status(error.statusCode).send({ err });
+  res.status(error.statusCode).send({ error });
   next();
 });
 
