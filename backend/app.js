@@ -10,9 +10,8 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes/routes');
 const BadRequestErr = require('./errors/BadRequestErr');
 const ConflictErr = require('./errors/ConflictErr');
-const { allowedCors } = require('./utils/config');
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 const app = express();
 
 // подключаемся к серверу mongo
@@ -27,7 +26,7 @@ app.use(cors({
   origin: ['https://olecyamesto.nomoredomains.work',
     'http://olecyamesto.nomoredomains.work',
     'http://localhost:3000'],
-  credentials: true
+  credentials: true,
 }));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -54,7 +53,7 @@ app.use((err, req, res, next) => {
     error.message = 'Произошла ошибка сервера';
   }
 
-  res.status(error.statusCode).send({ error });
+  res.status(error.statusCode).send({ err });
   next();
 });
 
