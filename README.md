@@ -8,7 +8,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 130.193.40.65
+IP 130.193.40.65
 
 Frontend https://olecyaMesto.nomoredomains.work
 
