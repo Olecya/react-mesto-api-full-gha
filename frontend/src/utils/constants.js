@@ -15,7 +15,7 @@ export const apiOptions =
     headers:
     {
         'Content-Type': 'application/json',
-        'Authorization': `jwt ${localStorage.getItem('jwt')}`
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`
     }
 }
 // {

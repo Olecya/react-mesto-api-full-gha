@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
   }
   let payload;
   try {
-    payload = jwt.verify(cookie.replace('jwt ', ''), NODE_ENV ? JWT_SECRET : JWT_KEY_SECRET);
+    payload = jwt.verify(cookie.replace('Bearer ', ''), NODE_ENV ? JWT_SECRET : JWT_KEY_SECRET);
   } catch (err) {
     next(new UnauthorizedErr('Войдите на сервис или зарегистрируйтесь'));
     return;
