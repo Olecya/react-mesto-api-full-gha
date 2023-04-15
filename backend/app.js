@@ -24,6 +24,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb')
   });
 app.use(cors({
   origin: ['https://olecyamesto.nomoredomains.work',
+    'https://olecyamesto.nomoredomains.work',
     'http://olecyamesto.nomoredomains.work',
     'http://localhost:3000'],
   credentials: true,

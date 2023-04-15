@@ -10,7 +10,7 @@ export const validationConfig = {
 
 export const apiOptions =
 {
-    baseUrl: 'http://expressOlecyaMesto.nomoredomains.work',
+    baseUrl: 'https://expressOlecyaMesto.nomoredomains.work',
     // baseUrl: 'http://localhost:3001',
     headers:
     {
