@@ -16,7 +16,13 @@ const createCard = async (req, res, next) => {
   const { name, link } = req.body;
   return Card.create({ name, link, owner })
     .then((r) => res.status(201).send(r))
-    .catch((e) => next(e));
+    .catch((error) => {
+      if (error.name === 'ValidationError') {
+        next(new BadRequestErr('Неверные данные'));
+      } else {
+        next(new Error('Произошла ошибка сервера'));
+      }
+    });
 };
 
 const deleteCard = async (req, res, next) => {
@@ -40,7 +46,7 @@ const deleteCard = async (req, res, next) => {
     })
     .catch((error) => {
       if (error.name === 'CastError') {
-        next(new NotFoundErr(`Карта не найдена ${cardId}`));
+        next(new BadRequestErr(`Карта не найдена ${cardId}`));
       } else {
         next(error);
       }

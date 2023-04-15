@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+const ConflictErr = require('../errors/ConflictErr');
 const NotFoundErr = require('../errors/NotFoundErr');
+const BadRequestErr = require('../errors/BadRequestErr');
 const User = require('../models/user');
 const { JWT_KEY_SECRET } = require('../utils/config');
 
@@ -54,10 +56,20 @@ const createUser = async (req, res, next) => {
             },
           });
         })
-        .catch((err) => {
-          next(err);
+        .catch((error) => {
+          console.log(error);
+          if (error.name === 'ValidationError') {
+            next(new BadRequestErr('Неверные данные'));
+            return;
+          }
+          if (error.code === 11000) {
+            next(new ConflictErr('Пользователь с такими e-mail уже существует'));
+          } else {
+            next(error);
+          }
         });
-    });
+    })
+    .catch((e) => next(e));
 };
 
 const patchUser = async (req, res, next) => {
@@ -72,7 +84,13 @@ const patchUser = async (req, res, next) => {
         next(new NotFoundErr('Запрашиваемый пользователь не найден'));
       }
     })
-    .catch((e) => next(e));
+    .catch((error) => {
+      if (error.name === 'ValidationError') {
+        next(new BadRequestErr('Неверные данные'));
+      } else {
+        next(error);
+      }
+    });
 };
 
 const patchUserAvatar = (req, res, next) => {
@@ -86,7 +104,14 @@ const patchUserAvatar = (req, res, next) => {
         next(new NotFoundErr('Запрашиваемый пользователь не найден'));
       }
     })
-    .catch((e) => next(e));
+    .catch((error) => {
+      // console.log(error);
+      if (error.name === 'CastError') {
+        next(new BadRequestErr('Неверные данные'));
+      } else {
+        next(error);
+      }
+    });
 };
 
 const login = (req, res, next) => {

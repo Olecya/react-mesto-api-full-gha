@@ -62,7 +62,8 @@ function Main(props) {
                         <Card key={card._id} card={card}
                         onCardClick={props.onCardClick}
                         onCardLike={props.onCardLike}
-                        onCardDelete={props.onCardDelete} />
+                        // onCardDelete={props.onCardDelete} 
+                        />
                     ))}
             </section>
             {/* <ImagePopup onClose={() => closeAllPopups()} card={selectedCard} /> */}
