@@ -10,6 +10,7 @@ export const Card = (props) => {
     const [currentUser, setCurrentUser] = useContext(CurrentUserContext);
 
     const isOwn = owner._id === currentUser._id;
+    if (!owner._id) isOwn = owner === currentUser._id;
     const isLiked = likes.some(i => i._id === currentUser._id);
 
     const cardLikeButtonClassName = (
