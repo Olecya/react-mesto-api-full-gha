@@ -12,10 +12,9 @@ const getCards = async (req, res, next) => Card.find({})
   .catch((e) => next(e));
 
 const createCard = async (req, res, next) => {
-  const owner = req.user._id;
+  const owner = req.user;
   const { name, link } = req.body;
   return Card.create({ name, link, owner })
-    .populate(['owner', 'likes'])
     .then((r) => res.status(201).send(r))
     .catch((error) => {
       if (error.name === 'ValidationError') {

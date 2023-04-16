@@ -43,7 +43,6 @@ function App() {
     }, []);
 
     useEffect(() => {
-        console.log('!!!!!!!!!!!!!!!!!!!!');
         loggedIn && getUser();
     }, [loggedIn]);
 
@@ -102,7 +101,9 @@ function App() {
 
     function handleAddPlace(card) {
         api.postNewCard(card)
-            .then((newCard) => { setCards([newCard, ...cards]) })
+            .then((newCard) => { 
+                console.log(newCard);
+                setCards([newCard, ...cards]) })
             .then(() => closeAllPopups())
             .catch((err) => console.log(err));
     }
