@@ -4,13 +4,19 @@ class Api {
     constructor(apiOptions) {
         this._baseUrl = apiOptions.baseUrl;
         this._headers = apiOptions.headers;
+    }
 
+    _authHeders = () => {
+        let a = this._headers;
+        a['Authorization'] = `Bearer ${localStorage.getItem('jwt')}`;
+        return a;
     }
 
     getInitialCards() {
+
         return fetch(`${this._baseUrl}/cards`, {
             credentials: 'include',
-            headers: this._headers
+            headers: this._authHeders()
         })
             .then(this._checkResponse);
     }
@@ -18,7 +24,7 @@ class Api {
     postNewCard = (dataCard) => {
         return fetch(`${this._baseUrl}/cards`, {
             method: 'POST',
-            headers: this._headers,
+            headers: this._authHeders(),
             body: JSON.stringify({
                 name: dataCard.name,
                 link: dataCard.link
@@ -30,7 +36,7 @@ class Api {
     deleteCard = (cardId) => {
         return fetch(`${this._baseUrl}/cards/${cardId}`, {
             method: 'DELETE',
-            headers: this._headers,
+            headers: this._authHeders(),
         })
             .then(this._checkResponse);
     }
@@ -38,14 +44,14 @@ class Api {
     toggleLikeCard = (cardId, method) => {
         return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
             method: method,
-            headers: this._headers,
+            headers: this._authHeders(),
         })
             .then(this._checkResponse);
     }
 
     getProfile() {
         return fetch(`${this._baseUrl}/users/me`, {
-            headers: this._headers,
+            headers: this._authHeders(),
         })
             .then(this._checkResponse);
     }
@@ -53,7 +59,7 @@ class Api {
     patchProfile(profileJSON) {
         return fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
-            headers: this._headers,
+            headers: this._authHeders(),
             body: JSON.stringify({
                 name: profileJSON.name,
                 about: profileJSON.about,
@@ -65,7 +71,7 @@ class Api {
     patchProfileAvatar(avatarUrl) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
-            headers: this._headers,
+            headers: this._authHeders(),
             body: JSON.stringify({
                 avatar: avatarUrl.avatar,
             })

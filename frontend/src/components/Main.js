@@ -13,25 +13,6 @@ function Main(props) {
 
     const { name, about, avatar } = currentUser;
 
-    // const [selectedCard, setSelectedCard] = useState({
-    //     card: {
-    //         link: null,
-    //         name: null
-    //     }
-    // });
-
-    // function handleCardLike(card, method) {
-    //     api.toggleLikeCard(card._id, method)
-    //         .then((newCard) => { setCards((state) => state.map((c) => c._id === card._id ? newCard : c)); })
-    //         .catch((err) => console.log(err));
-    // }
-
-    // function handleCardDelete(card) {
-    //     api.deleteCard(card._id)
-    //         .then(() => { setCards((cards) => cards.filter((c) => c._id !== card._id)) })
-    //         .catch((err) => console.log(err));;
-    // }
-
     return (
         <main>
             <section className="profile">
@@ -62,12 +43,10 @@ function Main(props) {
                         <Card key={card._id} card={card}
                         onCardClick={props.onCardClick}
                         onCardLike={props.onCardLike}
-                        // onCardDelete={props.onCardDelete} 
+                        onCardDelete={props.onCardDelete} 
                         />
                     ))}
             </section>
-            {/* <ImagePopup onClose={() => closeAllPopups()} card={selectedCard} /> */}
-            {/* {props.children} */}
         </main>
     );
 }

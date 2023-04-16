@@ -43,6 +43,7 @@ function App() {
     }, []);
 
     useEffect(() => {
+        console.log('!!!!!!!!!!!!!!!!!!!!');
         loggedIn && getUser();
     }, [loggedIn]);
 
@@ -82,7 +83,8 @@ function App() {
                 .then(() => {
                     setLoggedIn(true);
                 })
-                .then(() => { navigate("/") });
+                .then(() => { navigate("/") })
+                .catch((err) => console.log(err));
         }
     }, []);
 
@@ -136,7 +138,7 @@ function App() {
     function handleSignIn({ email, password }) {
         authorize(password, email)
             .then((data) => {
-                console.log(data.token);
+                // console.log(data.token);
                 if (data.token) {
                     setLoggedIn(true);
                     localStorage.setItem('mail', email);
